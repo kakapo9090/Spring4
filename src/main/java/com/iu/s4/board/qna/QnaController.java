@@ -1,4 +1,4 @@
-package com.iu.s4.board.notice;
+package com.iu.s4.board.qna;
 
 import java.util.List;
 
@@ -7,31 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s4.board.BoardDTO;
 
 @Controller
-@RequestMapping("/notice/**")
-public class NoticeController {
+@RequestMapping("/qna/**")
+public class QnaController {
 	@Autowired
-	private NoticeService NoticeService;
+	private QnaService qnaService;
 	
 	@ModelAttribute("board")
 	public String getBoard() {
-		return "notice";
-	}
-
-	//@RequestMapping(value = "list", method = RequestMethod.GET)
-	@GetMapping("list")
-	public ModelAndView getList()throws Exception{
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("board/list");
-		
-		List<BoardDTO> ar = NoticeService.getList();
-		mv.addObject("list", ar);
-		return mv;
+		return "qna";
 	}
 	
+	@GetMapping("list")
+	public ModelAndView getList() throws Exception{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("board/list");
+		List<BoardDTO> ar = qnaService.getList();
+		mv.addObject("list", ar);
+		return mv;
+		
+	}
 }
