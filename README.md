@@ -13,7 +13,7 @@
 	NOTICE
 	NUM
 	TITLE
-	CONTENTS
+	CONTENTS	:	textarea
 	WRITER
 	REGDATE
 	HITS
@@ -27,6 +27,20 @@
 	주소:	/notice/select?num=value
 			/WEB-INF/views/board/select.jsp	
 	3) 글쓰기
+			/notice/insert 	GET
+			/WEB-INF/views/board/insert.jsp
+			/notice/insert	POST
+			/list
 	4) 삭제
+	상세보기에 링크 /notice/delete	GET
+				/list로 돌아감
+	
 	5) 수정
 	
+4. 순서
+	1)	DTO, DAO, MAPPER, TEST CASE 테스트 수행
+	2)  Service, Controller, JSP 연결
+	
+	
+CLOB	java.lang.String
+DATE	java.sql.Date
