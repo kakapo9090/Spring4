@@ -5,8 +5,57 @@
   
   <mapper namespace="com.iu.s4.board.qna.QnaDAO">
 
-	<select id="getList" resultType="QnaDTO">
-		SELECT * FROM QNA
-	</select>
+		<select id="getCount" resultType="Long" parameterType="Pager">
+  			SELECT COUNT(num) FROM QNA
+  			
+  			<if test="kind == 'k1'">WHERE title LIKE '%' || #{search} || '%'</if>
+  			<if test="kind == 'k2'">WHERE contents LIKE '%' || #{search} || '%'</if>
+  			<if test="kind == 'k3'">WHERE writer LIKE '%' || #{search} || '%'</if>
+  			
+  			
+  		</select>
+  
+  
+		<select id="getList" resultType="QnaDTO" parameterType="Pager">
+			SELECT * FROM
+			(SELECT ROWNUM R, BK.* FROM
+				(SELECT * FROM QNA
+				 WHERE 
+				 	<choose>
+				 		<when test="kind=='k1'">
+				 			title
+				 		</when>
+				 		<when test="kind=='k2'">
+				 			contents
+				 		</when>
+				 		<otherwise>
+				 			writer
+				 		</otherwise>
+				 	</choose>
+				 	LIKE '%' || #{search} || '%'
+				  	
+			ORDER BY REF DESC, STEP ASC)BK)
+			WHERE R BETWEEN #{startRow} and #{lastRow}
+			
+		</select>
+		
+		<select id="getSelect" parameterType="BoardDTO" resultType="QnaDTO">
+			SELECT * FROM QNA WHERE NUM=#{num}
+		</select>
+		
+		<insert id="setInsert" parameterType="BoardDTO">
+			INSERT INTO QNA(NUM,TITLE,CONTENTS,WRITER,REGDATE,HITS, REF, STEP, DEPTH)
+			VALUES(QNA_SEQ.NEXTVAL,#{title},#{contents},#{writer},SYSDATE,0, qna_seq.currval, 0, 0)
+		</insert>
+		
+		
+		<update id="setReplyUpdate" parameterType="QnaDTO">
+			UPDATE QNA SET step=step+1 WHERE ref=#{ref} and step>#{step}
+		</update>
+		
+		<insert id="setReply" parameterType="QnaDTO">
+			INSERT INTO QNA(NUM,TITLE,CONTENTS,WRITER,REGDATE,HITS, REF, STEP, DEPTH)
+			VALUES(QNA_SEQ.NEXTVAL,#{title},#{contents},#{writer},SYSDATE,0, #{ref}, #{step}, #{depth})
+		</insert>
 		
   </mapper>

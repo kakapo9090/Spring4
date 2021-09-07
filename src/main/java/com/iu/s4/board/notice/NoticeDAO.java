@@ -22,26 +22,26 @@ public class NoticeDAO implements BoardDAO {
 	
 	@Override
 	public Long getCount(Pager pager) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
 	}
 
-	@Override //나중에 파라미터로 pager넣기
+	@Override //나중에 파라미터로 pager넣기 완
 	public List<BoardDTO> getList(Pager pager) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(NAMESPACE+"getList");
+		
+		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}
 
 	@Override
 	public BoardDTO getSelect(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sqlSession.selectOne(NAMESPACE+"getSelect", boardDTO);
 	}
 
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sqlSession.insert(NAMESPACE+"setInsert", boardDTO);
 	}
 
 	@Override
