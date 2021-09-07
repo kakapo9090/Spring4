@@ -43,6 +43,12 @@
 			SELECT * FROM QNA WHERE NUM=#{num}
 		</select>
 		
+		
+		<update id="setHitUpdate" parameterType="BoardDTO">
+			update qna set hits= hits+1 where num=#{num}
+		</update>
+		
+		
 		<insert id="setInsert" parameterType="BoardDTO">
 			INSERT INTO QNA(NUM,TITLE,CONTENTS,WRITER,REGDATE,HITS, REF, STEP, DEPTH)
 			VALUES(QNA_SEQ.NEXTVAL,#{title},#{contents},#{writer},SYSDATE,0, qna_seq.currval, 0, 0)

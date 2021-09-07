@@ -20,6 +20,7 @@ public class NoticeDAO implements BoardDAO {
 	
 	
 	
+
 	@Override
 	public Long getCount(Pager pager) throws Exception {
 		
@@ -38,6 +39,12 @@ public class NoticeDAO implements BoardDAO {
 		return sqlSession.selectOne(NAMESPACE+"getSelect", boardDTO);
 	}
 
+	@Override
+	public int setHitUpdate(BoardDTO boardDTO) throws Exception {
+		
+		return sqlSession.update(NAMESPACE+"setHitUpdate", boardDTO);
+	}
+	
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {
 		

@@ -16,6 +16,9 @@ public interface BoardDAO {
 	//상세 인터페이스에서 abstract 생략가능
 	public abstract BoardDTO getSelect(BoardDTO boardDTO) throws Exception;
 	
+	//조회수 업데이트
+	public int setHitUpdate(BoardDTO boardDTO) throws Exception;
+	
 	//글쓰기
 	public int setInsert(BoardDTO boardDTO) throws Exception;
 	

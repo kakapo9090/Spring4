@@ -34,8 +34,8 @@
 	
 	
 	
-	<div class="col-md-7 my-2 mx-auto">	
-	<table class="table">
+
+<table class="table">
 	  <thead>
 	    <tr>
 	      <th scope="col">NUM</th>
@@ -49,12 +49,15 @@
 	  	<c:forEach items="${list}" var="dto">
 		    <tr>
 		      <th scope="row">${dto.num}</th>
-		      <td><a href="./select?num=${dto.num}">${dto.title}</a></td>
+		      <td><a href="./select?num=${dto.num}">
 		      
-		      <c:forEach begin="1" end="${dto.depth}">
-		      	--
-		      </c:forEach>
+		      <c:catch>
+			      <c:forEach begin="1" end="${dto.depth}">
+			      	--
+			      </c:forEach>
+		      </c:catch>
 		      
+		      ${dto.title}</a></td>
 		      <td>${dto.writer}</td>
 		      <td>${dto.regDate}</td>
 		      <td>${dto.hits}</td>

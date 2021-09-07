@@ -15,6 +15,11 @@ public class QnaDAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.s4.board.qna.QnaDAO.";
 	
+	
+	
+	
+	
+
 	@Override
 	public Long getCount(Pager pager) throws Exception {
 		
@@ -31,6 +36,12 @@ public class QnaDAO implements BoardDAO {
 	public BoardDTO getSelect(BoardDTO boardDTO) throws Exception {
 		
 		return sqlSession.selectOne(NAMESPACE+"getSelect", boardDTO);
+	}
+	
+	@Override
+	public int setHitUpdate(BoardDTO boardDTO) throws Exception {
+		
+		return sqlSession.update(NAMESPACE+"setHitUpdate", boardDTO);
 	}
 
 	@Override
@@ -51,10 +62,12 @@ public class QnaDAO implements BoardDAO {
 		return 0;
 	}
 	
+	
+	//
 	public int setReplyUpdate(QnaDTO qnaDTO) throws Exception{
 		return sqlSession.update(NAMESPACE+"setReplyUpdate", qnaDTO);
 	}
-	
+	//답글
 	public int setReply(QnaDTO qnaDTO) throws Exception{
 		return sqlSession.insert(NAMESPACE+"setReply", qnaDTO);
 	}
