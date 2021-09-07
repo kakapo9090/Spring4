@@ -2,14 +2,16 @@ package com.iu.s4.board;
 
 import java.util.List;
 
+import com.iu.s4.util.Pager;
+
 public interface BoardDAO {
 
 	
 	//전체 갯수
-	public Long getCount() throws Exception;
+	public Long getCount(Pager pager) throws Exception;
 	
 	//List 인터페이스에서 abstract 생략가능
-	public abstract List<BoardDTO> getList() throws Exception;
+	public abstract List<BoardDTO> getList(Pager pager) throws Exception;
 	
 	//상세 인터페이스에서 abstract 생략가능
 	public abstract BoardDTO getSelect(BoardDTO boardDTO) throws Exception;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s4.board.BoardDTO;
+import com.iu.s4.util.Pager;
 
 @Controller
 @RequestMapping("/notice/**")
@@ -25,12 +26,15 @@ public class NoticeController {
 
 	//@RequestMapping(value = "list", method = RequestMethod.GET)
 	@GetMapping("list")
-	public ModelAndView getList()throws Exception{
+	public ModelAndView getList(Pager pager)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("board/list");
 		
-		List<BoardDTO> ar = NoticeService.getList();
-		mv.addObject("list", ar);
+		List<BoardDTO> ar = NoticeService.getList(pager);
+		
+		//jsp로 오브젝트 보내기
+		mv.addObject("list", ar);	
+		mv.addObject("pager", pager);
 		return mv;
 	}
 	

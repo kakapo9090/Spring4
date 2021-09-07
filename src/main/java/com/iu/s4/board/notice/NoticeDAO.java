@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.iu.s4.board.BoardDAO;
 import com.iu.s4.board.BoardDTO;
 import com.iu.s4.board.qna.QnaDTO;
+import com.iu.s4.util.Pager;
 
 @Repository
 public class NoticeDAO implements BoardDAO {
@@ -20,13 +21,13 @@ public class NoticeDAO implements BoardDAO {
 	
 	
 	@Override
-	public Long getCount() throws Exception {
+	public Long getCount(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
 	}
 
 	@Override //나중에 파라미터로 pager넣기
-	public List<BoardDTO> getList() throws Exception {
+	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(NAMESPACE+"getList");
 	}
