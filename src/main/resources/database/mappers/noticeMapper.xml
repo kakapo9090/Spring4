@@ -4,8 +4,48 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
-	<select id="getList" resultType="NoticeDTO">
-		SELECT * FROM NOTICE
+  <select id="getCount" resultType="BoardDTO" parameterType="com.iu.s4.util.Pager">
+  		SELECT COUNT(NUM) FROM NOTICE
+  		WHERE 
+       			 	
+       			 	<choose>
+       			 		<when test="kind == 'num'">
+       			 			num
+       			 		</when>
+       			 		
+       			 		<when test="kind == 'title'">
+       			 			title
+       			 		</when>
+       			 		
+       			 		<otherwise>
+       			 			writer
+       			 		</otherwise>
+       			 	</choose>
+       			 	
+       			 	LIKE '%' || #{search} || '%'
+
+  	</select>
+  
+	<select id="getList" resultType="NoticeDTO" parameterType="BoardDTO">
+		SELECT * FROM
+		(SELECT ROWNUM R, BK.* FROM
+		(SELECT*
+		FROM NOTICE
+		WHERE
+		<choose>
+				<when test="kind=='num'">
+					num
+				</when>
+				<when test="kind=='title'">
+					title
+				</when>
+				<otherwise>
+					writer
+				</otherwise>
+			</choose>
+		LIKE '%' || #{search} || '%'
+		ORDER BY NUM DESC)BK)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
 	
