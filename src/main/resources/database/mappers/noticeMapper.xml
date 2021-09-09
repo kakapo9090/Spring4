@@ -41,6 +41,10 @@
 		SELECT * FROM NOTICE WHERE NUM=#{num}
 	</select>
 	
+	<update id="setHitUpdate" parameterType="BoardDTO">
+			update NOTICE set hits= hits+1 where num=#{num}
+		</update>
+	
 	<insert id="setInsert" parameterType="BoardDTO">
 		INSERT INTO NOTICE(num, title, contents, writer, regDate, hits)
 		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, sysdate, 0)

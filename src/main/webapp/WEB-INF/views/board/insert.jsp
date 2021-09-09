@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../temp/boot_head.jsp"></c:import>
+<style type="text/css">
+	.er{
+		color: red;
+	}
+</style>
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
@@ -15,15 +20,17 @@
 
 <div class="container-fluid">
 	
-		<form class="col-md-6 mx-auto" action="./insert" method="post" >
+		<form id="frm" class="col-md-6 mx-auto" action="./insert" method="post" >
 		  <div class="mb-3">
 		    <label for="title" class="form-label">TITLE</label>
 		    <input type="text" class="form-control" name="title" id="title" placeholder="Enter Title">
+		 	<div id="t_1" class="er"></div>
 		  </div>
 		  
 		  <div class="mb-3">
 		    <label for="writer" class="form-label">Writer</label>
 		    <input type="text" class="form-control" name="writer" id="writer" placeholder="Enter Writer">
+		 	<div id="w_1" class="er"></div>
 		  </div>
 		  
 		  <div class="mb-3">
@@ -31,10 +38,10 @@
   			<textarea class="form-control" cols=""  name="contents" id="exampleFormControlTextarea1" rows="6"></textarea>
 		  </div>
 		 	
-		  <button id="b1" type="button" class="btn btn-primary">ADD</button>
+		  <button id="btn" type="button" class="btn btn-primary">ADD</button>
 		</form>
 	
 </div>
-<script type="text/javascript" src="./resources/js/boardCheck.js"></script>
+<script type="text/javascript" src="../resources/js/boardCheck.js"></script>
 </body>
 </html>
