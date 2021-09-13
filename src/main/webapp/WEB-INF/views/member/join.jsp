@@ -50,11 +50,31 @@
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
   
+  <div class="mb-3 my-4" id="files">
+    <label class="form-label"></label>
+   <button id="add" type="button" class="btn btn-info">FILE ADD</button>
+	</div>
+
+</form>
+
+	<!-- input file 추가 영역 -->
+	<div id="addResult">
+	
+	</div>
+
   <button id="btn1" type="button" class="btn btn-primary">가입하기</button>
 </form>
-	
-	
 
+	
+   <div class="mb-3" id="f">
+    <label for="photo" class="form-label">Photo</label>
+    <input type="file" name="photo" class="form-control put" id="photo" >
+  </div>
+  
+	
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="../resources/js/join.js"></script>	
+<script type="text/javascript" src="../resources/js/file.js"></script>	
 </body>
 </html>

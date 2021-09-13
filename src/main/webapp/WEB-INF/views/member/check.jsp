@@ -10,6 +10,7 @@
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 <h1>Check Page</h1>
 
