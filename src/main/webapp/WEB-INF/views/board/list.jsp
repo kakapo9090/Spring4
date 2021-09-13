@@ -46,10 +46,10 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	  	<c:forEach items="${list}" var="dto" varStatus="i">
+	  	<c:forEach items="${list}" var="dto">
 		    <tr>
 		      <th scope="row">${dto.num}</th>
-		      <td><span class="c1" data-writer-num="${i.index}">
+		      <td><a href="./select?num=${dto.num}">
 		      
 		      <c:catch>
 			      <c:forEach begin="1" end="${dto.depth}">
@@ -58,7 +58,7 @@
 		      </c:catch>
 		      
 		      ${dto.title}</span></td>
-		      <td id="w${i.index}">${dto.writer}</td>
+		      <td>${dto.writer}</td>
 		      <td>${dto.regDate}</td>
 		      <td>${dto.hits}</td>
 		    </tr>
@@ -101,9 +101,11 @@
   </ul>
 </nav>
 		
+		<c:if test="${not empty member}"> 
+		<a href="./insert" class="btn btn-danger">WRITE</a>
 		
-		<a href="./insert" class="btn btn-danger">ADD</a>
 		<button id="btn">CLICK</button>
+		</c:if>
 <script type="text/javascript" src="../resources/js/list.js"></script>	
 </body>
 </html>

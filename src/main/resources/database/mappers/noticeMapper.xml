@@ -35,9 +35,7 @@
 		ORDER BY NUM DESC)BK)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
-	<update id="setHitUpdate" parameterType="BoardDTO">
-			update notice set hits= hits+1 where num=#{num}
-		</update>
+
 	
 	<select id="getSelect" parameterType="BoardDTO" resultType="NoticeDTO">
 		SELECT * FROM NOTICE WHERE NUM=#{num}
