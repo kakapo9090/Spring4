@@ -4,14 +4,38 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
+  
+  <!-- ======== 파일 출력 쿼리 작성 09-15 ================= -->
+  
+  	<select id="getFiles" parameterType="BoardDTO" resultType="BoardFilesDTO">
+  		select * from noticefiles where num=#{num}
+  	</select>
+  	
+  <!-- ======== 파일 업로드 쿼리 작성 09-15 ================= -->
+  
+  	<insert id="setFile" parameterType="BoardFilesDTO">
+  		insert into noticeFiles (fileNum, num, fileName, oriName)
+  		values(files_seq.nextval, #{num}, #{fileName}, #{oriName})
+  	</insert>
+  	
+  	
+	<insert id="setInsert" parameterType="BoardDTO">
+		<selectKey order="BEFORE" resultType="Long" keyProperty="num">
+			select notice_seq.nextval from dual
+		</selectKey>
+		INSERT INTO NOTICE(num, title, contents, writer, regDate, hits)
+		VALUES(#{num}, #{title}, #{contents}, #{writer}, sysdate, 0)
+	</insert>
+  	
+<!-- ==setInsert쿼리의 밸류값에 NOTICE 시퀀스 컬럼을 변수num으로 변경====================== -->  	
+  	
+  	
   	<select id="getCount" resultType="Long" parameterType="Pager">
   		SELECT COUNT(NUM) FROM NOTICE
   		
 		<if test="kind == 'k1'">WHERE title LIKE '%' || #{search} || '%'</if>
 		<if test="kind == 'k2'">WHERE contents LIKE '%' || #{search} || '%'</if>
 		<if test="kind == 'k3'">WHERE writer LIKE '%' || #{search} || '%'</if>
-		
-		
   	</select>
   
 	<select id="getList" resultType="NoticeDTO" parameterType="Pager">
@@ -44,11 +68,9 @@
 	<update id="setHitUpdate" parameterType="BoardDTO">
 			update NOTICE set hits= hits+1 where num=#{num}
 		</update>
+
 	
-	<insert id="setInsert" parameterType="BoardDTO">
-		INSERT INTO NOTICE(num, title, contents, writer, regDate, hits)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, sysdate, 0)
-	</insert>
+	
 	
 	<delete id="setDelete" parameterType="BoardDTO">
 		DELETE FROM NOTICE WHERE NUM=#{num}

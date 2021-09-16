@@ -11,6 +11,11 @@ public class MemberDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.s4.member.MemberDAO.";
 	
+	public MemberFilesDTO getFile(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getFile", memberDTO);
+	}
+	
+	
 	//회원정보 변경
 	public int setUpdate(MemberDTO memberDTO) throws Exception{
 		return sqlSession.update(NAMESPACE+"setUpdate", memberDTO);
@@ -19,6 +24,11 @@ public class MemberDAO {
 	//회원 탈퇴
 	public int setDelete(MemberDTO memberDTO) throws Exception{
 		return sqlSession.delete(NAMESPACE+"setDelete", memberDTO);
+	}
+	
+	
+	public int setFileInsert(MemberFilesDTO memberFilesDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setFileInsert", memberFilesDTO);
 	}
 	
 	

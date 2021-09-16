@@ -8,10 +8,13 @@
 <title>Insert title here</title>
 <c:import url="../temp/boot_head.jsp"></c:import>
 <style type="text/css">
-	.er{
-		color: red;
+	#d1{
+		width: 300px;
+		height: 300px;
+		background-color: yellow;
 	}
 </style>
+
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
@@ -20,7 +23,7 @@
 
 <div class="container-fluid">
 	
-		<form id="frm" class="col-md-6 mx-auto" action="./insert" method="post" >
+		<form id="frm" class="col-md-6 mx-auto" action="./insert" method="post" enctype="multipart/form-data">
 		  <div class="mb-3">
 		    <label for="title" class="form-label">TITLE</label>
 		    <input type="text" class="form-control" name="title" id="title" placeholder="Enter Title">
@@ -37,11 +40,42 @@
 		   <label for="exampleFormControlTextarea1" class="form-label">Contents</label>
   			<textarea class="form-control" cols=""  name="contents" id="exampleFormControlTextarea1" rows="6"></textarea>
 		  </div>
+		  
+		  
+		 	<!--  button 추가 -->
+		 	<button type="button" id="fileAdd" class="btn btn-danger">File ADD</button>
+		 	<button type="button" class="del">Delete</button>
+		 	<div id="fileAddResult">
 		 	
-		  <button id="btn" type="button" class="btn btn-primary">ADD</button>
+		 	</div>
+		 	
+
+		 	<div class="mb-3">
+		  <button id="btn" type="submit" class="btn btn-primary">게시물 등록</button>
+			</div>
+			
 		</form>
 	
 </div>
-<script type="text/javascript" src="../resources/js/boardCheck.js"></script>
+<div id="d1">
+	<button id="c1">CLICK</button>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="../resources/js/boardFile.js"></script>
+<script type="text/javascript">
+
+	$("#d1").click(function(){
+		alert('d1');
+	});
+	
+	$("#c1").click(function() {
+		alert('c1');
+	});
+</script>
+
 </body>
 </html>

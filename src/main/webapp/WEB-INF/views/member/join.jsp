@@ -13,7 +13,7 @@
 	<h1>Join Page</h1>
 
 	
-<form id="frm" class="col-md-4 mx-auto" action="join" method="post">
+<form id="frm" class="col-md-4 mx-auto" action="join" method="post" enctype="multipart/form-data">
 	<span class="d-block p-2 bg-dark text-white" style="text-align: center;">회원가입</span>
 	<br>
 	
@@ -50,20 +50,9 @@
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
   
-  <div class="mb-3 my-4" id="files">
-    <label class="form-label"></label>
-   <button id="add" type="button" class="btn btn-info">FILE ADD</button>
-	</div>
+  <button id="btn1" type="submit" class="btn btn-primary">가입하기</button>
+  
 
-</form>
-
-	<!-- input file 추가 영역 -->
-	<div id="addResult">
-	
-	</div>
-
-  <button id="btn1" type="button" class="btn btn-primary">가입하기</button>
-</form>
 
 	
    <div class="mb-3" id="f">
@@ -71,10 +60,11 @@
     <input type="file" name="photo" class="form-control put" id="photo" >
   </div>
   
+</form>
 	
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="../resources/js/join.js"></script>	
-<script type="text/javascript" src="../resources/js/file.js"></script>	
+<!-- <script type="text/javascript" src="../resources/js/join.js"></script>	
+<script type="text/javascript" src="../resources/js/file.js"></script>	 -->
 </body>
 </html>

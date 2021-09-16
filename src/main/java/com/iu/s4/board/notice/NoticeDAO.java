@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.iu.s4.board.BoardDAO;
 import com.iu.s4.board.BoardDTO;
+import com.iu.s4.board.BoardFilesDTO;
 import com.iu.s4.board.qna.QnaDTO;
 import com.iu.s4.util.Pager;
 
@@ -17,7 +18,17 @@ public class NoticeDAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.s4.board.notice.NoticeDAO.";
 	
+	//파일 출력 메서드 09-15
+	public List<BoardFilesDTO> getFiles(BoardDTO boardDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getFiles", boardDTO);
+	}
 	
+	//파일 업로드 메서드 09-15
+	@Override
+	public int setFile(BoardFilesDTO boardFilesDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(NAMESPACE+"setFile", boardFilesDTO);
+	}
 	
 	
 
@@ -54,7 +65,7 @@ public class NoticeDAO implements BoardDAO {
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAMESPACE+"setDelete", boardDTO);
 	}
 
 	@Override

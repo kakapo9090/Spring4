@@ -4,6 +4,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.s4.board.qna.QnaDAO">
+  
+  	<!--  ====== 파일 출력 쿼리 작성 09-15 ======== -->
+  		<select id="getFiles" parameterType="BoardDTO" resultType="BoardFilesDTO">
+  			select * from qnafiles where num=#{num}
+  		</select>
+  
+  
+  	<!-- ====== 파일 업로드 쿼리 작성 09-15 ======== -->
+  	
+  		<insert id="setFile" parameterType="BoardFilesDTO">
+  			insert into qnafiles (fileNum, num, fileName, oriName)
+  			values(files_seq.nextval, #{num}, #{fileName}, #{oriName})
+  		</insert>
+  
+		<insert id="setInsert" parameterType="BoardDTO">
+			<selectKey order="BEFORE" resultType="Long" keyProperty="num">
+				SELECT qna_seq.nextval FROM DUAL
+			</selectKey>
+			INSERT INTO QNA(NUM, TITLE, CONTENTS, WRITER, REGDATE, HITS, REF, STEP, DEPTH)
+			VALUES(#{num}, #{title}, #{contents}, #{writer}, SYSDATE, 0, qna_seq.currval, 0, 0)
+		</insert>
+  
+	<!-- ==setInsert쿼리의 밸류값에 QNA 시퀀스 컬럼을 변수num으로 변경====================== -->
+
+
+
+
 
 		<select id="getCount" resultType="Long" parameterType="Pager">
   			SELECT COUNT(num) FROM QNA
@@ -49,10 +76,6 @@
 		</update>
 		
 		
-		<insert id="setInsert" parameterType="BoardDTO">
-			INSERT INTO QNA(NUM,TITLE,CONTENTS,WRITER,REGDATE,HITS, REF, STEP, DEPTH)
-			VALUES(QNA_SEQ.NEXTVAL,#{title},#{contents},#{writer},SYSDATE,0, qna_seq.currval, 0, 0)
-		</insert>
 		
 		
 		<update id="setReplyUpdate" parameterType="QnaDTO">

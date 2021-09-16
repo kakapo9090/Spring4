@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -57,8 +58,12 @@ public class MemberController {
 	
 	//마이페이지
 	@GetMapping("mypage")
-	public ModelAndView mypage() throws Exception{
+	public ModelAndView mypage(HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		MemberFilesDTO memberFilesDTO = memberService.getFile(memberDTO);
+		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("files", memberFilesDTO);
 		mv.setViewName("member/mypage");
 		return mv;
 	}
@@ -127,9 +132,18 @@ public class MemberController {
 	
 	//회원가입 양식 제출
 	@PostMapping("join")
-	public ModelAndView join(MemberDTO memberDTO)throws Exception{
+	public ModelAndView join(MemberDTO memberDTO, MultipartFile photo, HttpSession session)throws Exception{
+		
+		/*
+		 * String original = photo.getOriginalFilename(); //파일 이름
+		 * System.out.println("Original : "+original); String name = photo.getName();
+		 * //파라미터 이름 System.out.println("name : "+name); long size = photo.getSize();
+		 * //파일 사이즈 System.out.println("FileSize : "+size);
+		 */
+		
+		
 		ModelAndView mv = new ModelAndView();
-		int result = memberService.setJoin(memberDTO);
+		int result = memberService.setJoin(memberDTO, photo, session);
 		
 		String message = "회원가입 실패";
 		if(result>0) {
