@@ -20,7 +20,7 @@
 		<h3>DATE:${dto.regDate}</h3>
 		<h3>HITS:${dto.hits}</h3>
 	
-	<c:forEach items="${fileList}" var="f">
+	<c:forEach items="${dto.files}" var="f">
 		<div>
 		<img alt="" src="../resources/upload/${board}/${f.fileName}">			
 		</div>

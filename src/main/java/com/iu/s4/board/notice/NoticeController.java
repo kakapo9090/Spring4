@@ -55,8 +55,8 @@ public class NoticeController {
 	public ModelAndView getSelect(BoardDTO boardDTO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		boardDTO = noticeService.getSelect(boardDTO);
-		List<BoardFilesDTO> ar = noticeService.getFiles(boardDTO); //글번호 넘겨주기
-		mv.addObject("fileList", ar);
+//		List<BoardFilesDTO> ar = noticeService.getFiles(boardDTO); //글번호 넘겨주기
+//		mv.addObject("fileList", ar);
 		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/select");
 		return mv;
