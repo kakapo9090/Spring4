@@ -102,9 +102,7 @@ public class NoticeService implements BoardService {
 		}
 		
 		
-		// DB삭제
-		noticeDAO.setDelete(boardDTO);
-		
+		// DB삭제	
 		return noticeDAO.setDelete(boardDTO);
 	}
 
