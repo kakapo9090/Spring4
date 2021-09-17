@@ -27,6 +27,18 @@ public class NoticeController {
 		return "notice";
 	}
 	
+	//09-17 파일다운 컨트롤러
+	@GetMapping("down")
+	public ModelAndView fileDown(BoardFilesDTO boardFilesDTO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("dto", boardFilesDTO);
+		mv.setViewName("fileDown");//view이름에 경로를 주지 않고
+		return mv;
+	}
+	
+	
+	
+	
 	
 	//매개변수로 삭제할 글 번호를 받는다
 	@GetMapping("delete")
