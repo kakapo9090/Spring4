@@ -22,13 +22,19 @@
 	<c:if test="${empty member}">
 	<h3>Login을 하기전 보이는 문장</h3>
 	</c:if>
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<button id="btn">CLICK</button>
 
+	<h1>Conflict</h1>
+
+	<h1>Member Branch</h1>
+	
+	<button id="btn">CLICK</button>
+	
 	<script type="text/javascript">
+	
 		$("#btn").click(function(){
-			alert('hi');
+			$.get("./ajax/t1?num=1", function(result){
+				console.log(result);
+			});
 		});
 	</script>
 	
