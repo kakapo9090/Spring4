@@ -1,6 +1,7 @@
 package com.iu.s4.board.notice;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,16 @@ public class NoticeDAO implements BoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.s4.board.notice.NoticeDAO.";
+	
+	public Long getCommentCount(CommentsDTO commentsDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getCommentCount", commentsDTO);
+	}
+	
+	
+	//한 페이지의 댓글 목록 09-23
+	public List<CommentsDTO> getCommentList(Map<String, Object> map)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getCommentList", map);
+	}
 	
 	//BoardDAO선언하고 오버라이딩해야함
 	//댓글 작성 09-23

@@ -1,6 +1,7 @@
 package com.iu.s4.board.notice;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,18 @@ public class NoticeService implements BoardService {
 	private ServletContext servletContext;
 	@Autowired
 	private FileManager fileManager;
+	
+	// 09-23 댓글 목록 출력, Paging처리를 위해 Hash맵 활용
+	public List<CommentsDTO> getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception{
+		pager.setPerPage(5L);
+		pager.makeRow();
+		//전체 댓글의 갯수
+		pager.makeNum(noticeDAO.getCommentCount(commentsDTO));
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("comments", commentsDTO);
+		map.put("pager", pager);
+		return noticeDAO.getCommentList(map);
+	}
 	
 	//BoardDAO선언하고 오버라이딩해야함
 	//댓글 작성 09-23

@@ -27,6 +27,19 @@ public class NoticeController {
 	public String getBoard() {
 		return "notice";
 	}
+	//09-23 댓글 리스트... 리스트인데 매개변수를 받는 이유?
+	@GetMapping("getCommentList")
+	public ModelAndView getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception{
+		commentsDTO.setBoard("N"); //어느 글에 대한 리스트를 받아야하는가? N:NOTICE / Q:QNA
+		List<CommentsDTO> ar = noticeService.getCommentList(commentsDTO, pager);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("comments", ar); //오브젝트를 어디로 보내야할지?
+		mv.addObject("pager", pager);
+		mv.setViewName("common/ajaxList"); //댓글리스트를 위한 ajax페이지 생성
+		return mv;
+	}
+	
+	
 	
 	//setComment	09-17
 	@PostMapping("comment")
@@ -81,12 +94,14 @@ public class NoticeController {
 	
 	
 	
-	//09-16 게시물 글 + 이미지 출력
+	//09-16, 09-23 게시물 글 + 이미지 출력
 	@GetMapping("select")
 	public ModelAndView getSelect(BoardDTO boardDTO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		boardDTO = noticeService.getSelect(boardDTO);
-//		List<BoardFilesDTO> ar = noticeService.getFiles(boardDTO); //글번호 넘겨주기
+		List<BoardFilesDTO> ar = noticeService.getFiles(boardDTO); //글번호 넘겨주기
+//		List<CommentsDTO> comments = noticeService.getCommentList();
+//		mv.addObject("comments", comments);
 //		mv.addObject("fileList", ar);
 		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/select");

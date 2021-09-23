@@ -7,12 +7,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../temp/boot_head.jsp"></c:import>
+<style type="text/css">
+	.more{
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
-	<h1>${board}Select Page</h1>
 	
-	<div class="container-fluid">
+	<div class="container-fluid col-md-8">
+	<h1>${board}Select Page</h1>
 		<h3>NUM:${dto.num}</h3>
 		<h3>Title:${dto.title}</h3>
 			
@@ -29,13 +34,21 @@
 		<a href="./down?fileName=${f.fileName}">${f.oriName}</a>		
 		</div>
 	</c:forEach>	
-		
+	<hr />
+	<hr>
+	<hr>	
 	<hr>
 	<form action="./comment">
 	
 	</form>
 	
 	<hr>	
+	<!-- comment list ---- select페이지에 출력될 댓글 목록들 -->
+	<div id="commentList" data-board-num="${dto.num}">
+	
+	
+	</div>
+	
 	<div>
 	  <div class="mb-3">
 		    <label for="writer" class="form-label">Writer</label>
@@ -65,6 +78,59 @@
 	</c:if>
 	</div>
 
+<!-- 댓글 목록들 출력 자바스크립트 09-23 -->
+<script type="text/javascript">
+	getCommentList(1);	//1: 첫페이지를 뜻함
+	
+	//Del click event
+	$('#commentList').on("click", ".commentDel", function(){
+		let commentNum = $(this).attr("data-comment-del");
+		console.log(commentNum);
+		//url ./commentDel
+		$.ajax({
+			type: "get",
+			url: "./getCommentList",
+			data: {
+				num:num
+			}
+		});
+	});
+	
+	//이벤트 위임
+	$("#commentList").on("click", ".more", function(){
+		//data-comment-pn 값을 출력
+		let pn = $(this).attr("data-comment-pn");
+		getCommentList(pn);
+		//console.log(pn);
+	});
+	
+	
+	
+	function getCommentList(pageNumber){
+		let num = $("#commentList").attr("data-board-num");
+		
+		$.ajax({
+			type: "get",
+			url: "./getCommentList",
+			data: {
+				num:num,
+				pn : pageNumber	
+			},	//파라미터이름:변수명
+			success: function(result){
+				result=result.trim();
+				$("#commentList").html(result);
+			},
+			error: function(xhr, status, error){
+				console.log(error);
+			}
+			
+		});
+	}
+
+</script>
+
+
+<!-- 댓글 작성 버튼 입력시 -->
 <script type="text/javascript">
 	$("#comment").click(function(){
 		//작성자, 내용을 콘솔에 출력
@@ -72,6 +138,9 @@
 		let contents = $("#contents").val();
 		$.post("./comment", {num:'${dto.num}', writer:writer, contents:contents}, function(result){
 			console.log(result.trim());
+			
+			$("#contents").val('');
+			getCommentList();	//새로고침 효과
 		});
 		
 	});

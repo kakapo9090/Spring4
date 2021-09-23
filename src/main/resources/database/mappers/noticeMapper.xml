@@ -4,9 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
+  <!-- 페이징 카운트 commentNum의 갯수를 구하는 쿼리문 -->
+  <select id="getCommentCount" parameterType="CommentsDTO" resultType="Long">
+  	SELECT COUNT(commentNum) FROM COMMENTS
+  	WHERE board=#{board} and num=#{num}
+  </select>
+  
+  
+  
+  
+  <!-- 한 페이지의 댓글 목록(리스트)출력 09-23 #{board}대신 'N'넣어도 가능 & 페이징처리 서브쿼리 --> 
+  <select id="getCommentList" parameterType="Map" resultType="CommentsDTO">
+  	SELECT * FROM
+	  	(SELECT rownum R, C.* FROM 
+		  	(select * from comments
+		  	where board=#{comments.board} and num=#{comments.num}
+		  	order by commentnum desc) C)
+	WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
+  </select>
+  
   
   <!-- 댓글 쿼리 작성 09-23 -->
-  
   <insert id="setComment" parameterType="CommentsDTO">
   	INSERT INTO COMMENTS VALUES (comments_seq.nextval, #{num}, #{writer}, #{contents}, sysdate, #{board})
   </insert>
