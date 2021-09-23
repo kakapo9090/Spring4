@@ -5,6 +5,15 @@
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
   
+  <!-- 댓글 쿼리 작성 09-23 -->
+  
+  <insert id="setComment" parameterType="CommentsDTO">
+  	INSERT INTO COMMENTS VALUES (comments_seq.nextval, #{num}, #{writer}, #{contents}, sysdate, #{board})
+  </insert>
+  
+  
+  
+  
   <!-- ======== 파일 출력 쿼리 작성 09-15 ================= -->
   
   	<select id="getFiles" parameterType="BoardDTO" resultType="BoardFilesDTO">

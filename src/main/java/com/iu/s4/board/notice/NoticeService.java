@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.iu.s4.board.BoardDTO;
 import com.iu.s4.board.BoardFilesDTO;
 import com.iu.s4.board.BoardService;
+import com.iu.s4.board.CommentsDTO;
 import com.iu.s4.util.FileManager;
 import com.iu.s4.util.Pager;
 @Service
@@ -25,6 +26,13 @@ public class NoticeService implements BoardService {
 	private ServletContext servletContext;
 	@Autowired
 	private FileManager fileManager;
+	
+	//BoardDAO선언하고 오버라이딩해야함
+	//댓글 작성 09-23
+	public int setComment(CommentsDTO commentsDTO)throws Exception{
+		return noticeDAO.setComment(commentsDTO);
+	}
+	
 	
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
@@ -44,6 +52,8 @@ public class NoticeService implements BoardService {
 		noticeDAO.setHitUpdate(boardDTO);
 		return noticeDAO.getSelect(boardDTO);
 	}
+	
+	//BoardDAO선언하고 오버라이딩해야함
 	// 게시물 이미지 출력 09-15 파일명가져오기?
 	public List<BoardFilesDTO> getFiles(BoardDTO boardDTO)throws Exception{
 		return noticeDAO.getFiles(boardDTO);

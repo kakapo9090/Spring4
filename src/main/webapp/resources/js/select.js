@@ -5,13 +5,13 @@
  const btn = document.getElementById('btn');
  const c1 = document.getElementsByClassName('c1');
  
-btn.addEventListener('click', function(){
+/*btn.addEventListener('click', function(){
 	for(let ch of c1){
 		ch.checked= true;
 	}
 	alert('check all');
 });
-
+*/
 
 for(let ch of c1){
 	if(ch.checked){

@@ -61,10 +61,9 @@
   </div>
   
 </form>
+
 	
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="../resources/js/join.js"></script>	
-<script type="text/javascript" src="../resources/js/file.js"></script>	 -->
+<script type="text/javascript" src="../resources/js/join.js"></script>	
+<script type="text/javascript" src="../resources/js/file.js"></script>	
 </body>
 </html>

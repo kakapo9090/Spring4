@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.iu.s4.board.BoardDAO;
 import com.iu.s4.board.BoardDTO;
 import com.iu.s4.board.BoardFilesDTO;
+import com.iu.s4.board.CommentsDTO;
 import com.iu.s4.board.qna.QnaDTO;
 import com.iu.s4.util.Pager;
 
@@ -18,6 +19,14 @@ public class NoticeDAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.s4.board.notice.NoticeDAO.";
 	
+	//BoardDAO선언하고 오버라이딩해야함
+	//댓글 작성 09-23
+	public int setComment(CommentsDTO commentsDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setComment", commentsDTO);
+			
+	}
+	
+	//BoardDAO선언하고 오버라이딩해야함
 	//파일 출력 메서드 09-15
 	public List<BoardFilesDTO> getFiles(BoardDTO boardDTO) throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getFiles", boardDTO);

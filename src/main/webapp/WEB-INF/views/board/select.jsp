@@ -30,7 +30,31 @@
 		</div>
 	</c:forEach>	
 		
+	<hr>
+	<form action="./comment">
+	
+	</form>
+	
+	<hr>	
+	<div>
+	  <div class="mb-3">
+		    <label for="writer" class="form-label">Writer</label>
+		    <input type=text" class="form-control" name="writer" id="writer" value="${member.id}" readonly >
+		 	<div id="w_1" class="er"></div>
+		  </div>
+		  
+		  <div class="mb-3">
+		   <label for="contents" class="form-label">Contents</label>
+  			<textarea class="form-control" cols=""  name="contents" id="contents" rows="6"></textarea>
+		  </div>
+		  
+		  
+		 <!--  button 추가 -->
+		 <button type="button" id="comment" class="btn btn-danger">댓글달기</button>
+	
+	</div>
 		
+	<hr>	
 		
 	<c:if test="${not empty member and member.id eq dto.writer}">
 	<a href="./delete?num=${dto.num}">DELETE</a>
@@ -40,14 +64,18 @@
 		<a href="./reply?num=${dto.num}">REPLY</a>
 	</c:if>
 	</div>
-	
-	<div>
-		<input type="checkbox" class="c1" value="1" checked="checked">
-		<input type="checkbox" class="c1" value="2">
-		<input type="checkbox" class="c1" value="3" checked="checked">
-		<input type="checkbox" class="c1" value="4">
-	</div>
-	<button id="btn">CHECK</button>
+
+<script type="text/javascript">
+	$("#comment").click(function(){
+		//작성자, 내용을 콘솔에 출력
+		let writer = $("#writer").val();
+		let contents = $("#contents").val();
+		$.post("./comment", {num:'${dto.num}', writer:writer, contents:contents}, function(result){
+			console.log(result.trim());
+		});
+		
+	});
+</script>
 	
 	
 <script type="text/javascript" src="../resources/js/select.js"></script>
