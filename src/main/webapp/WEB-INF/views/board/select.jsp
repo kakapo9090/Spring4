@@ -82,16 +82,90 @@
 <script type="text/javascript">
 	getCommentList(1);	//1: 첫페이지를 뜻함
 	
+	//전역변수 선언
+	let content='';
+
+	//update 	부모 			위임
+	$('#commentList').on("click", ".commentUpdate", function(){
+		console.log('update');
+		let num = $(this).attr("data-comment-update");	//가져올 속성명
+		content= $("#content"+num).text().trim();
+		$("#content"+num).children().css('display', 'none');	//
+		let ta = '<textarea class="form-control" cols=""  name="contents" id="contents" rows="6">'
+		ta = ta+content.trim() + '</textarea>';
+		ta = ta + '<button type="button" id="comment" class="btn btn-primary up">업데이트</button>'
+		ta = ta + '<button type="button" id="comment" class="btn btn-danger cancel">취소</button>'
+		$("#content"+num).append(ta);	//버튼 넣기
+	});
+	
+	//댓글 수정 update
+	$("#commentList").on('click', '.up', function(){
+		let contents = $(this).prev().val();
+		let cn = $(this).parent().prev().text().trim();
+		let selector=$(this);
+		$.ajax({
+			type:"POST",
+			url: "./commentUpdate",
+			data:{				
+				commentNum:cn,
+				contents:contents
+			},
+			success:function(result){
+				if(result.trim()>0){
+					alert('수정 성공');
+					//getCommentList(1);
+					selector.parent().children('div').text(contents);
+					selector.parent().children('div').css('display', 'block');
+					selector.parent().children('textarea').remove();
+					selector.parent().children('button').remove();
+				}else{
+					alert('수정 실패');
+				}
+			},
+			error:function(){
+				alert('수정 실패');
+			}
+			
+		});
+	});
+	
+	
+	// 09-24 cancel
+	$("#commentList").on('click', ".cancel", function(){
+		console.log(content);
+		//1) textarea 없애기
+		$(this).parent().children('div').css('display', 'block');
+		$(this).parent().children('textarea').remove();
+		$(this).parent().children('button').remove();
+		//2) 원래 있던 내용 가져오기
+		
+	})
+	
+	
 	//Del click event
 	$('#commentList').on("click", ".commentDel", function(){
 		let commentNum = $(this).attr("data-comment-del");
 		console.log(commentNum);
 		//url ./commentDel
 		$.ajax({
-			type: "get",
-			url: "./getCommentList",
+			type: "POST",
+			url: "./commentDel",
 			data: {
-				num:num
+				commentNum:commentNum
+			},
+			success:function(result){
+				result=result.trim();
+				
+				if(result>0){
+					alert("삭제 성공");
+					getCommentList(1);
+				}else{
+					alert("삭제 실패");
+				}
+				
+			},
+			error:function(){
+				alert('삭제 실패');
 			}
 		});
 	});
@@ -140,7 +214,7 @@
 			console.log(result.trim());
 			
 			$("#contents").val('');
-			getCommentList();	//새로고침 효과
+			getCommentList();
 		});
 		
 	});

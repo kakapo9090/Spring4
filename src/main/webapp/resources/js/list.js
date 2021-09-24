@@ -39,7 +39,7 @@ btn.addEventListener('click', function(){
 	for(let i of c1){
 		console.log(i.innerHTML);
 	}
-
+});
 
 /*	
 	ar.forEach(function(v, i, ar){
@@ -63,4 +63,3 @@ btn.addEventListener('click', function(){
 		console.log(ar[i]);
 	}
 */	
-});

@@ -27,6 +27,31 @@ public class NoticeController {
 	public String getBoard() {
 		return "notice";
 	}
+	
+	//09-24 댓글 수정
+	@PostMapping("commentUpdate")
+	public ModelAndView setCommentUpdate(CommentsDTO commentsDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = noticeService.setCommentUpdate(commentsDTO);
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result); //0 또는 1을 보내줄 값
+		
+		return mv;
+	}
+	
+	
+	//09-24 댓글 삭제
+	@PostMapping("commentDel")
+	public ModelAndView setCommentDelete(CommentsDTO commentsDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = noticeService.setCommentDelete(commentsDTO);
+		
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result); //0 또는 1을 보내줄 값
+		
+		return mv;
+	}
+	
 	//09-23 댓글 리스트... 리스트인데 매개변수를 받는 이유?
 	@GetMapping("getCommentList")
 	public ModelAndView getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception{

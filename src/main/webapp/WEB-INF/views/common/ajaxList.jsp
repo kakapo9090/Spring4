@@ -8,11 +8,20 @@
 <c:forEach items="${comments}" var="comment"> 
 	<tr>
 		<td>${comment.commentNum}</td>
-		<td>${comment.contents}</td>
+		
+		 <td id="content${comment.commentNum}">
+  			<%-- <textarea class="form-control" cols=""  name="contents" id="" rows="" readonly="readonly">${comment.contents}</textarea> --%>		 
+		 	<div>
+		 		${comment.contents}
+		 	</div>
+		 </td>
+	  
 		<td>${comment.writer}</td>
 		<td>${comment.regDate}</td>
 		<td>
 			<c:if test="${member.id eq comment.writer}">
+			
+				<button class="commentUpdate" data-comment-update="${comment.commentNum}">UPDATE</button>	
 				<button class="commentDel" data-comment-del="${comment.commentNum}">DEL</button>	
 			</c:if>
 		</td>	

@@ -28,6 +28,17 @@ public class NoticeService implements BoardService {
 	@Autowired
 	private FileManager fileManager;
 	
+	//09-24 댓글 수정
+	public int setCommentUpdate(CommentsDTO commentsDTO)throws Exception{
+		return noticeDAO.setCommentUpdate(commentsDTO);
+	}
+	
+	
+	public int setCommentDelete(CommentsDTO commentsDTO) throws Exception{
+		return noticeDAO.setCommentDelete(commentsDTO);
+	}
+	
+	
 	// 09-23 댓글 목록 출력, Paging처리를 위해 Hash맵 활용
 	public List<CommentsDTO> getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception{
 		pager.setPerPage(5L);

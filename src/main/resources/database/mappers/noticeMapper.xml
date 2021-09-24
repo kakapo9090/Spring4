@@ -4,7 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
-  <!-- 페이징 카운트 commentNum의 갯수를 구하는 쿼리문 -->
+  
+  <update id="setCommentUpdate" parameterType="CommentsDTO">
+  	update comments set contents=#{contents} where commentNum=#{commentNum}
+  </update>
+  
+  
+  <!-- 09-24 댓글 삭제 -->
+  <delete id="setCommentDelete" parameterType="CommentsDTO">
+  	delete comments where commentNum=#{commentNum}
+  </delete>
+  
+  
+  
+  <!-- 09-23 페이징 카운트 commentNum의 갯수를 구하는 쿼리문 -->
   <select id="getCommentCount" parameterType="CommentsDTO" resultType="Long">
   	SELECT COUNT(commentNum) FROM COMMENTS
   	WHERE board=#{board} and num=#{num}
