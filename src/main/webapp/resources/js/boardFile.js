@@ -14,6 +14,9 @@
 	count = c;
 }
  
+ function updateCount(){
+	count--;
+}
  
  $("#fileAdd").click(function(){
 	/*index++;

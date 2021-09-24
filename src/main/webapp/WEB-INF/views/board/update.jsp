@@ -37,7 +37,7 @@
 
 <div class="container-fluid">
 	
-		<form id="frm" class="col-md-6 mx-auto" action="./insert" method="post" enctype="multipart/form-data">
+		<form id="frm" class="col-md-6 mx-auto" action="./update" method="post" enctype="multipart/form-data">
 		  <div class="mb-3">
 		    <label for="title" class="form-label">TITLE</label>
 		    <input type="text" class="form-control" name="title" value="${dto.title}" id="title" placeholder="Enter Title">
@@ -108,6 +108,7 @@
 			success:function(result){
 				console.log(result);
 				selector.parent().remove();
+				updateCount();
 			}
 		});
 	});
