@@ -28,6 +28,31 @@ public class NoticeController {
 		return "notice";
 	}
 	
+	//09-24 jsp연결
+	@GetMapping("update")
+	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boardDTO = noticeService.getSelect(boardDTO);
+		
+		mv.addObject("dto", boardDTO); //담아서
+		mv.setViewName("board/update");
+		
+		return mv;
+	}
+	
+	//09-24 글 수정 페이지 파일 삭제
+	@PostMapping("fileDelete")
+	public ModelAndView setFileDelete(BoardFilesDTO boardFilesDTO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = noticeService.setFileDelete(boardFilesDTO);
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("dto", result); //담아서 ajax로 보냄
+		
+		return mv;
+	}
+	
+	
+	
 	//09-24 댓글 수정
 	@PostMapping("commentUpdate")
 	public ModelAndView setCommentUpdate(CommentsDTO commentsDTO) throws Exception{

@@ -5,6 +5,12 @@
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
   
+  <delete id="setFileDelete" parameterType="BoardFilesDTO">
+  		delete noticeFiles where fileNum=#{fileNum}
+  </delete>
+  
+  
+  <!-- 09-24 댓글 수정 -->
   <update id="setCommentUpdate" parameterType="CommentsDTO">
   	update comments set contents=#{contents} where commentNum=#{commentNum}
   </update>
