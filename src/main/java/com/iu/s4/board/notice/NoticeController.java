@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +20,7 @@ import com.iu.s4.board.CommentsDTO;
 import com.iu.s4.util.Pager;
 
 @Controller
+//@RestController
 @RequestMapping("/notice/**")
 public class NoticeController {
 	@Autowired
@@ -79,29 +82,33 @@ public class NoticeController {
 	
 	//09-23 댓글 리스트... 리스트인데 매개변수를 받는 이유?
 	@GetMapping("getCommentList")
-	public ModelAndView getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception{
+	@ResponseBody	//09-27
+	public List<CommentsDTO> getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception{
 		commentsDTO.setBoard("N"); //어느 글에 대한 리스트를 받아야하는가? N:NOTICE / Q:QNA
 		List<CommentsDTO> ar = noticeService.getCommentList(commentsDTO, pager);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("comments", ar); //오브젝트를 어디로 보내야할지?
-		mv.addObject("pager", pager);
-		mv.setViewName("common/ajaxList"); //댓글리스트를 위한 ajax페이지 생성
-		return mv;
+//		mv.addObject("comments", ar); //오브젝트를 어디로 보내야할지?
+//		mv.addObject("pager", pager);
+//		mv.setViewName("common/ajaxList"); //댓글리스트를 위한 ajax페이지 생성
+		return ar;
 	}
 	
 	
 	
 	//setComment	09-17
 	@PostMapping("comment")
-	public ModelAndView setComment(CommentsDTO commentsDTO)throws Exception{
+	@ResponseBody	//09-27
+	public int setComment(CommentsDTO commentsDTO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		commentsDTO.setBoard("N");
 		//09-23
 		int result = noticeService.setComment(commentsDTO);
+//		String json ="{";
+//		json = json + "result:"+"\""+result+"\"}";   //이렇게 만들면 어렵기땜에 jackson 라이브러리 사용
 		mv.setViewName("common/ajaxResult");
 		mv.addObject("result", result); //0 또는 1을 보내줄 값
 		
-		return mv;
+		return result;
 	}
 	
 	
