@@ -10,7 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.iu.s4.member.MemberDTO;
 
-@Component
+@Component()
 public class AdminInterceptor extends HandlerInterceptorAdapter {
 
 	//컨트롤러 진입 전 사용자 아이디가 admin인지 검증
@@ -18,9 +18,9 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		//admin 검증
+		//로그인 한 세션 아이디 가져오기
 		MemberDTO memberDTO = (MemberDTO)request.getSession().getAttribute("member");
-		
+		//관리자아이디admin이 맞는지 확인
 		boolean result=false;
 		if(memberDTO != null && memberDTO.getId().equals("admin")) {
 			result=true;

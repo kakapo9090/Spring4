@@ -28,9 +28,9 @@
 	
 		<interceptor>
 			<mapping path="/notice/*"/>
-			<exclude-mapping path="/notice/list"/>
-			<exclude-mapping path="/notice/comment"/>
 			<exclude-mapping path="/notice/select"/>
+			<exclude-mapping path="/notice/comment"/>
+			<exclude-mapping path="/notice/list"/>
 			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 	</interceptors>
